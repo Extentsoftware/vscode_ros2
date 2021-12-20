@@ -1,16 +1,17 @@
-FROM althack/ros2:foxy-dev 
+FROM althack/ros2:galactic-dev 
 
 # ** [Optional] Uncomment this section to install additional packages. **
 #
-# ENV DEBIAN_FRONTEND=noninteractive
-# RUN apt-get update \
-#    && apt-get -y install --no-install-recommends <your-package-list-here> \
-#    #
-#    # Clean up
-#    && apt-get autoremove -y \
-#    && apt-get clean -y \
-#    && rm -rf /var/lib/apt/lists/*
-# ENV DEBIAN_FRONTEND=dialog
+RUN apt update
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update 
+RUN apt-get -y install --no-install-recommends ubuntu-desktop mesa-utils
+RUN apt-get -y install --no-install-recommends ros-galactic-rviz2
+RUN apt-get -y install --no-install-recommends ros-galactic-rqt ros-galactic-rqt-common-plugins
+RUN apt-get autoremove -y 
+RUN apt-get clean -y 
+RUN rm -rf /var/lib/apt/lists/*
+ENV DEBIAN_FRONTEND=dialog
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
